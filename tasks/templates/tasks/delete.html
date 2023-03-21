@@ -1,0 +1,33 @@
+<head>
+    <title>Delete Task</title>
+    <style>
+body {
+    position: fixed;
+    margin: 10px;
+    background-color: lightblue;
+}
+
+div {
+    display:flex;
+}
+
+input[type=submit], button {
+    background-color: #0080FF;
+    border: 3px solid #0066CC;
+    border-radius: 5px;
+    padding: 2px 6px;
+    margin-right: 5px;
+}
+    </style>
+</head>
+
+<body>
+<p style="font-size:20px">Are you sure you want to delete "{{item}}"?</p>
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="submit" name="Confirm">
+    </form>
+    <a href="{% url 'list' %}"><button type="button">Cancel</button></a>
+</div>
+</body>

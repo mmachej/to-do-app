@@ -1,0 +1,116 @@
+<head>
+    <link rel="stylesheet" href="static/css/style.css">
+    <title>To Do List</title>
+    <style>
+body {
+    position: absolute;
+    left: 50%;
+    margin-left: -200px;
+    background-color: lightblue;
+}
+
+.complete-button {
+    background-color: #57ff02;
+    border: 3px solid #45ce00;
+}
+
+button {
+    background-color: #0080FF;
+    border: 3px solid #0066CC;
+    border-radius: 5px;
+    padding: 2px 6px;
+}
+
+h3 {
+    margin: 10px 0px 6px;
+}
+
+p {
+    font-size: 12px;
+    margin: 0px;
+}
+
+.task-bar {
+    width: 400px;
+    height: 70px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    display: flex;
+}
+
+.name {
+    position: absolute;
+    left: 20px;
+}
+
+.date {
+    position: absolute;
+    width: 110px;
+    left: 280px;
+    text-align: center;
+    </style>
+</head>
+
+<body>
+<h2>TO DO LIST:</h2>
+<a href="{% url 'add_task' %}"><button type="button" style="width: 400px; margin-bottom: 15px">Add new task</button></a></button>
+{% for task in tasks %}
+    {% if task.time_left > 3 %}
+    <div class="task-bar" style="background-color: yellow;">
+        <div class="name">
+            <h3>{{task}}</h3>
+            <a href="{% url 'complete_task' task.id %}"><button type="button" class="complete-button">Completed!</button></a>
+            <a href="{% url 'update_task' task.id %}"><button type="button">Edit</button></button></a>
+            <a href="{% url 'delete' task.id %}"><button type="button">Delete</button></a>
+             </div>
+        <div class="date">
+            <h3>{{ task.time_left}} days left</h3>
+            <p>{{task.get_date}}</p>
+        </div>
+    </div>
+    {% else %}
+        {% if task.time_left >= 0 %}
+    <div class="task-bar" style="background-color: orange;">
+        <div class="name">
+            <h3>{{task}}</h3>
+            <a href="{% url 'complete_task' task.id %}"><button type="button" class="complete-button">Completed!</button></a>
+            <a href="{% url 'update_task' task.id %}"><button type="button">Edit</button></button></a>
+            <a href="{% url 'delete' task.id %}"><button type="button">Delete</button></a>
+        </div>
+        <div class="date">
+            <h3>{{ task.time_left}} days left</h3>
+            <p>{{task.get_date}}</p>
+        </div>
+    </div>
+
+        {% else %}
+    <div class="task-bar" style="background-color: red;">
+        <div class="name">
+            <h3>{{task}}</h3>
+            <a href="{% url 'complete_task' task.id %}"><button type="button" class="complete-button">Completed!</button></a>
+            <a href="{% url 'update_task' task.id %}"><button type="button">Edit</button></button></a>
+            <a href="{% url 'delete' task.id %}"><button type="button">Delete</button></a>
+        </div>
+        <div class="date">
+            <h3>Overdue</h3>
+            <p>{{task.get_date}}</p>
+        </div>
+
+    </div>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+
+{% for task in completed_tasks %}
+<div class="task-bar" style="background-color: #57ff02;">
+        <div class="name">
+            <h3><strike>{{task}}</strike></h3>
+            <a href="{% url 'update_task' task.id %}"><button type="button">Edit</button></button></a>
+            <a href="{% url 'delete' task.id %}"><button type="button">Delete</button></a>
+        </div>
+        <div class="date">
+            <h3>DONE</h3>
+        </div>
+    </div>
+{% endfor %}
+</body>

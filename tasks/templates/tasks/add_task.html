@@ -1,0 +1,28 @@
+<head>
+    <title>Add Task</title>
+    <style>
+body {
+    position: fixed;
+    margin: 10px;
+    background-color: lightblue;
+}
+
+input[type=submit] {
+    background-color: #0080FF;
+    border: 3px solid #0066CC;
+    border-radius: 5px;
+    padding: 2px 6px;
+}
+    </style>
+</head>
+
+<body>
+<h2>ADD TASK</h2>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" name="Create task">
+</form>
+</body>
+
